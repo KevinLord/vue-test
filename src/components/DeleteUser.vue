@@ -1,0 +1,84 @@
+<template>
+  <div id="app">
+    <!--表格数据及操作-->
+    <el-table :data="table" border style="width: 50%;left: 300px;" stripe ref="multipleTable" tooltip-effect="dark">
+
+      <el-table-column prop="user" label="用户" width="380">
+      </el-table-column>
+      <el-table-column label="操作" width="200">
+        <template slot-scope="scope">
+          <el-button type="danger" icon="el-icon-delete" size="mini" @click="del(scope.row,scope.$index)">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <!--分页条-->
+    <el-pagination background layout="prev, pager, next" :total="1000">
+    </el-pagination>
+
+
+  </div>
+</template>
+<script>
+    export default {
+        data() {
+            return {
+                dialogCreateVisible: false,
+                //表格数据
+                table: [],
+                //导航条默认选项
+                activeIndex: '1',
+                activeIndex2: '1',
+                userIndex: 0,
+            }
+        },
+        created: function () {
+            this.AddDb();
+        },
+        methods: {
+            indexMethod(index) {
+                return index;
+            },
+            handleClose(done) {
+                this.$confirm('确认关闭？')
+                    .then(_ => {
+                        done();
+                    })
+                    .catch(_ => {
+                    });
+            },
+            del(row, idx) {
+                this.$confirm('确认删除？')
+                    .then(_ => {
+                        this.table.splice(idx, 1);
+                        /*删除数据库中数据*/
+                        var data = {userName: row.user}
+                        this.$axios.delete("api/deleteUser", {data: data}
+                        ).then(res => {
+                            console.log(res)
+                        })
+                    })
+                    .catch(_ => {
+                    });
+            },
+            /*del(idx) {
+                this.$confirm('确认删除？')
+                    .then(_ => {
+                        this.table.splice(idx, 1);
+                    })
+                    .catch(_ => {
+                    });
+            },*/
+            AddDb() {
+                this.$axios.get("api/login").then(res => {
+                    var data = [];
+                    for (var x = 0; x < res.data.length; x++) {
+                        var obj = {};
+                        obj.user = res.data[x].userName;
+                        data[x] = obj;
+                    }
+                    this.table = data;
+                })
+            }
+        }
+    }
+</script>
