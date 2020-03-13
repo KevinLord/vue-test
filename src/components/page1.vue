@@ -23,7 +23,7 @@
       <el-table-column label="操作" width="200">
         <template slot-scope="scope">
           <el-button type="primary" icon="el-icon-edit" size="mini" @click="edit(scope.row,scope.$index)">编辑</el-button>
-          <el-button type="danger" icon="el-icon-delete" size="mini" @click="del(scope.$index)">删除</el-button>
+          <el-button type="danger" icon="el-icon-delete" size="mini" @click="del(scope.row,scope.$index)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -174,10 +174,15 @@
                     event: '',
                 };
             },
-            del(idx) {
+            del(row,idx) {
                 this.$confirm('确认删除？')
                     .then(_ => {
                         this.table.splice(idx, 1);
+                        var data = {name: row.name}
+                        this.$axios.delete("api/deletePage1", {data: data}
+                        ).then(res => {
+                            console.log(res)
+                        })
                     })
                     .catch(_ => {
                     });
@@ -197,8 +202,7 @@
             confirm() {
                 this.dialogVisible = false;
                 this.table.splice(this.userIndex, 1, this.editObj);
-                console.log("测试")
-                console.log(this.oldName)
+
                 this.editPage1()
             },
             editPage1() {

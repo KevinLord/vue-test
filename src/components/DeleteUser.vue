@@ -60,14 +60,6 @@
                     .catch(_ => {
                     });
             },
-            /*del(idx) {
-                this.$confirm('确认删除？')
-                    .then(_ => {
-                        this.table.splice(idx, 1);
-                    })
-                    .catch(_ => {
-                    });
-            },*/
             AddDb() {
                 this.$axios.get("api/login").then(res => {
                     var data = [];

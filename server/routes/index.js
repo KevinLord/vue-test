@@ -40,9 +40,21 @@ router.post('/changePage1', function (req, res, next) {
   connect.query("update page1 SET date='" +date+ "',name='" +name+ "' ,address='" +address+ "' ,event='" +event+ "' WHERE name='" +oldName+ "' ", function (err, rows) {
   });
 });
+router.delete("/deletePage1",function(req,res,next){
+  var name = req.body.name;
+  console.log(req.body)
+  console.log("啊啊啊啊啊啊啊")
+  connect.query("delete from page1 where name ='" +name+ "'" ,function(err,rows){
+    if(err){
+      console.log(err);
+    }else {
+      console.log("成功");
+    }
+  });
+});
 
 router.get("/addUser", function (req, res, next) {
-  console.log("hah")
+  console.log("addUser")
 });
 router.post("/addUser", function (req, res, next) {
   var userName1=req.body.userName;
@@ -68,8 +80,6 @@ router.post("/AddLog", function (req, res, next) {
   });
 });
 
-
-
 router.delete("/deleteLog",function(req,res,next){
   var user = req.body.user;
   var date = req.body.date;
@@ -88,7 +98,6 @@ router.delete("/deleteLog",function(req,res,next){
 router.delete("/deleteUser",function(req,res,next){
   var userName = req.body.userName;
   console.log(req.body)
-  console.log("啊啊啊啊啊啊啊")
   connect.query("delete from user where userName ='" +userName+ "'" ,function(err,rows){
     if(err){
       console.log(err);
@@ -104,5 +113,15 @@ router.post('/changePassword', function (req, res, next) {
   connect.query("update user SET userName='" +userName+ "',userPassword='" +userPassword+ "' WHERE userName='" +userName+ "' ", function (err, rows) {
   });
 });
+
+router.post('/authority', function (req, res, next) {
+  console.log("修改权限")
+  console.log(req.body)
+  var userName = req.body.userName;
+  var authority = req.body.authority;
+  connect.query("update user SET authority='" +authority+ "' WHERE userName='" +userName+ "' ", function (err, rows) {
+  });
+});
+
 
 module.exports = router;
