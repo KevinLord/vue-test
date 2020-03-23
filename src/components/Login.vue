@@ -3,7 +3,7 @@
     <!-- 通过:rules="loginFormRules"来绑定输入内容的校验规则 -->
     <el-form :rules="loginFormRules" ref="loginForm" :model="loginForm" label-position="right" label-width="auto"
              show-message>
-      <span class="login-title">道交一体化数据融合处理平台</span>
+      <span class="login-title">道交一体化信息融合平台</span>
       <div style="margin-top: 20px"></div>
       <el-form-item label="用户名" prop="loginName">
         <el-col :span="22">

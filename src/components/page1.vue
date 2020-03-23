@@ -1,14 +1,11 @@
 <template>
   <div id="app">
     <!--表格数据及操作-->
-    <el-table :data="table" border style="width: 100%" stripe ref="multipleTable" tooltip-effect="dark">
-      <!--勾选框-->
-      <el-table-column type="selection" width="55">
-      </el-table-column>
+    <el-table :data="table.slice((currentPage-1)*pagesize,currentPage*pagesize)" border style="width: 100%" stripe ref="multipleTable" tooltip-effect="dark">
       <!--索引-->
-      <el-table-column label="序号" width="80">
+      <el-table-column label="序号" width="100">
         <template slot-scope="scope">
-          {{scope.$index+1}}
+          {{(currentPage-1)*pagesize+scope.$index+1}}
         </template>
       </el-table-column>
 
@@ -36,9 +33,14 @@
     </el-col>
     <br>
 
-    <!--分页条-->
-    <el-pagination background layout="prev, pager, next" :total="1000">
-    </el-pagination>
+    <div style="text-align: center;margin-top: 30px;">
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        :total="total"
+        @current-change="current_change">
+      </el-pagination>
+    </div>
 
     <el-dialog
       title="新建案例"
@@ -68,7 +70,6 @@
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogCreateVisible = false">取 消</el-button>
         <el-button type="primary" @click="onSubmit">确 定</el-button>
-
       </span>
     </el-dialog>
 
@@ -126,18 +127,27 @@
                 activeIndex: '1',
                 activeIndex2: '1',
                 userIndex: 0,
-                oldName: ''
+                oldName: '',
+
+                total: 0,
+                pagesize:10,
+                currentPage:1
             }
         },
         created: function () {
             this.AddDb();
         },
+
         methods: {
+            current_change:function(currentPage){
+                this.currentPage = currentPage;
+            },
             onSubmit() {
                 console.log('submit!');
                 this.dialogCreateVisible = false;
                 this.created()
                 this.add();
+                /*this.AddDb();*/
             },
             handleSelect(key, keyPath) {
                 console.log(key, keyPath);
@@ -202,8 +212,8 @@
             confirm() {
                 this.dialogVisible = false;
                 this.table.splice(this.userIndex, 1, this.editObj);
-
                 this.editPage1()
+                this.AddDb()
             },
             editPage1() {
                 this.$axios.post("api/changePage1",
@@ -230,6 +240,8 @@
                         data[x] = obj;
                     }
                     this.table = data;
+                    this.total = data.length
+                    console.log(this.total)
                 })
             }
         }

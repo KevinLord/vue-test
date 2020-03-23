@@ -13,6 +13,7 @@
                   <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item @click.native="log">日志管理</el-dropdown-item>
                     <el-dropdown-item @click.native="system">关于系统</el-dropdown-item>
+                    <el-dropdown-item @click.native="login">退出系统</el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
             </span>
@@ -26,7 +27,6 @@
                     <el-dropdown-item @click.native="ChangePassword">密码修改</el-dropdown-item>
                     <el-dropdown-item @click.native="DeleteUser">删除用户</el-dropdown-item>
                     <el-dropdown-item @click.native="DistributeAuthority">权限分配</el-dropdown-item>
-                    <el-dropdown-item @click.native="login">退出系统</el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
             </span>

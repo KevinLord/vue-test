@@ -66,7 +66,6 @@
                 }
                 else
                     this.flag = 1;
-
             },
         },
         computed: {

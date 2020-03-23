@@ -43,7 +43,6 @@ router.post('/changePage1', function (req, res, next) {
 router.delete("/deletePage1",function(req,res,next){
   var name = req.body.name;
   console.log(req.body)
-  console.log("啊啊啊啊啊啊啊")
   connect.query("delete from page1 where name ='" +name+ "'" ,function(err,rows){
     if(err){
       console.log(err);
@@ -86,7 +85,7 @@ router.delete("/deleteLog",function(req,res,next){
   var time = req.body.time;
   var event = req.body.event;
   console.log(req.body)
-  connect.query("delete from log where user ='" +user+ "'" ,function(err,rows){
+  connect.query("delete from log where time ='" +time+ "'" ,function(err,rows){
     if(err){
       console.log(err);
     }else {
@@ -115,7 +114,6 @@ router.post('/changePassword', function (req, res, next) {
 });
 
 router.post('/authority', function (req, res, next) {
-  console.log("修改权限")
   console.log(req.body)
   var userName = req.body.userName;
   var authority = req.body.authority;

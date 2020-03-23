@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!--表格数据及操作-->
-    <el-table :data="table" border style="width: 60%;left: 200px;" stripe ref="multipleTable" tooltip-effect="dark">
+    <el-table :data="table.slice((currentPage-1)*pagesize,currentPage*pagesize)" border style="width: 60%;left: 200px;" stripe ref="multipleTable" tooltip-effect="dark">
 
       <!--索引-->
       <el-table-column label="序号" width="80">
@@ -25,8 +25,14 @@
 
 
     <!--分页条-->
-    <el-pagination background layout="prev, pager, next" :total="1000">
-    </el-pagination>
+    <div style="text-align: center;margin-top: 30px;">
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        :total="total"
+        @current-change="current_change">
+      </el-pagination>
+    </div>
 
 
   </div>
@@ -42,13 +48,19 @@
                 activeIndex: '1',
                 activeIndex2: '1',
                 userIndex: 0,
-                oldName: ''
+                oldName: '',
+                total: 0,
+                pagesize:10,
+                currentPage:1
             }
         },
         created: function () {
             this.loadTable();
         },
         methods: {
+            current_change:function(currentPage){
+                this.currentPage = currentPage;
+            },
             handleSelect(key, keyPath) {
                 console.log(key, keyPath);
             },
@@ -92,6 +104,7 @@
                         data[x] = obj;
                     }
                     this.table = data;
+                    this.total = data.length
                 })
             }
         }

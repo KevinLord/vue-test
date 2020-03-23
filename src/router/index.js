@@ -12,6 +12,7 @@ import AddUser from '@/components/adduser'
 import ChangePassword from '@/components/changepassword'
 import DeleteUser from '@/components/deleteuser'
 import DistributeAuthority from '@/components/distributeauthority'
+import test from '@/components/test'
 
 Vue.use(Router)
 
@@ -76,6 +77,11 @@ export default new Router({
           path: '/system',
           name: 'System',
           component: System
+        },
+        {
+          path: '/test',
+          name: 'test',
+          component: test
         }
       ]
     }
