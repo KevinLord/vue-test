@@ -241,7 +241,6 @@
                     }
                     this.table = data;
                     this.total = data.length
-                    console.log(this.total)
                 })
             }
         }

@@ -1,6 +1,6 @@
 <template>     
   <div style="background-color: #EBEBEB;min-height:900px">
-    <div style="width:100%;background-color: #636363; overflow: hidden">
+    <div style="width:100%;background-color: #636363; overflow: hidden; margin-top: -30px">
             <span class="demonstration" style="float:left;padding-top:10px;color:black;margin-left:1%">
                 道交一体化数据融合处理平台
             </span>
@@ -36,7 +36,7 @@
       <el-row :gutter="10">
         <el-col :xs="4" :sm="4" :md="4" :lg="4">
           <div>
-            <el-menu default-active="1" class="el-menu-vertical-demo" background-color="#909399"
+            <el-menu default-active="1" class="el-menu-vertical-demo" background-color="#909399" text-color="black" active-text-color="white"
                      style="min-height:900px" @select="handleSelect">
               <el-menu-item index="1"><i class="el-icon-data capture"></i>道交事故数据采集</el-menu-item>
               <el-menu-item index="2"><i class="el-icon-image capture"></i>图像采集</el-menu-item>
@@ -48,9 +48,9 @@
         <el-col :xs="20" :sm="20" :md="20" :lg="20">
           <div>
             <div
-              style="border: 1px solid #A6A6A6; border-radius:6px; padding:5px; height:30px; width:150px; margin:20px; background-color: lightskyblue">
+              style="border: 1px solid #A6A6A6; border-radius:6px; padding:5px; height:30px; width:120px; margin:30px; background-color: lightskyblue">
               <el-breadcrumb separator="/">
-                <el-breadcrumb-item style="font-size:130%; line-height:160%; text-align:center"
+                <el-breadcrumb-item style="font-size:130%; line-height:160%; text-align:center; margin-left: 20px;"
                                     v-for="item in breadcrumbItems">{{item}}
                 </el-breadcrumb-item>
               </el-breadcrumb>
@@ -64,24 +64,18 @@
       </el-row>
     </div>
   </div>
-      
 </template>
-
 
 <script type="text/ecmascript-6">
     export default {
         data() {
             return {
                 searchCriteria: '',
-                breadcrumbItems: ['道交事故数据采集'],
+                breadcrumbItems: ['道交一体化'],
             }
         },
 
         methods: {
-            handleIconClick(ev) {
-                console.log(ev);
-            },
-
             login() {
                 this.$router.push('/')
             },
@@ -114,7 +108,7 @@
                 switch (key) {
                     case '1':
                         this.$router.push('/Page1');
-                        this.breadcrumbItems = ['道交事故数据采集']
+                        this.breadcrumbItems = ['数据采集']
                         break;
                     case '2':
                         this.$router.push('/Page2')
@@ -122,11 +116,11 @@
                         break;
                     case '3':
                         this.$router.push('/Page3')
-                        this.breadcrumbItems = ['数据整合关联']
+                        this.breadcrumbItems = ['数据整合']
                         break;
                     case '4':
                         this.$router.push('/Page4')
-                        this.breadcrumbItems = ['数据融合处理']
+                        this.breadcrumbItems = ['数据融合']
                         break;
                 }
             },

@@ -58,7 +58,7 @@ router.get("/addUser", function (req, res, next) {
 router.post("/addUser", function (req, res, next) {
   var userName1=req.body.userName;
   var userPassword1=req.body.userPassword;
-  connect.query("insert into user(userName,userPassword) values('" +userName1+ "', '" +userPassword1+ "')", function (error, results, fields) {
+  connect.query("insert into user(userName,userPassword,authority) values('" +userName1+ "', '" +userPassword1+ "','user')", function (error, results, fields) {
     res.json(results);
   });
 });
@@ -119,6 +119,22 @@ router.post('/authority', function (req, res, next) {
   var authority = req.body.authority;
   connect.query("update user SET authority='" +authority+ "' WHERE userName='" +userName+ "' ", function (err, rows) {
   });
+});
+
+router.post('/pic', function (req, res, next) {
+  console.log(req.body.id)
+  console.log(req.body.file)
+  var id = req.body.id
+  var file = req.body.file
+  connect.query("insert into pic(id,picData) values('" +id+ "', '" +file+ "')", function (err, rows) {
+  });
+});
+
+router.get('/pic', function(req, res, next) {
+  console.log(res)
+  connect.query("select * from pic", function (error, results, fields){
+    res.json("get:::"+results);
+  })
 });
 
 

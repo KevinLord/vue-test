@@ -27,12 +27,12 @@
       </el-row>
 
       <el-form-item>
-        <el-button type="primary" @click="result">计算</el-button>
+        <el-button type="primary" @click="result" style="margin-left:-400px ">数据融合</el-button>
       </el-form-item>
 
-      <el-col span="18">
+      <el-col span="16">
         <el-form-item label="融合结果" >
-          <el-input type="textarea" v-model="jisuan"></el-input>
+          <el-input type="textarea" :rows="5" v-model="jisuan"></el-input>
         </el-form-item>
       </el-col>
     </el-form>
@@ -61,7 +61,7 @@
         },
         computed: {
             jisuan() {
-                if (this.form.probability1 == 0 || this.form.probability2 == 0 || this.form.name1 == '' || this.form.name2 == '') {
+                if ((this.form.probability1 == 0 || this.form.probability2 == 0 || this.form.name1 == '' || this.form.name2 == '')&& this.flag==1) {
                     this.flag = 0
                     this.$notify({
                         type: 'error',
