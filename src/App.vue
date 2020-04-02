@@ -8,17 +8,6 @@
     export default {
         name: 'App',
         mounted() {
-            /*
-            this.$axios.get("api/login").then((res) => {
-                console.log(res);
-            }),
-                this.$axios.get("api/page1").then((res) => {
-                    console.log(res);
-                }),
-                this.$axios.get("api/log").then((res) => {
-                    console.log(res);
-                })*/
-
         }
     }
 </script>

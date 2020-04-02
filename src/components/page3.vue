@@ -50,7 +50,13 @@
                     detail: ''
                 },
                 formResult: {},
-                flag: 0
+                flag: 0,
+                result:{
+                    ruanyuan:'',
+                    miaoshu:'',
+                    leixing:'',
+                    jieguo:''
+                }
             };
 
         },
@@ -65,31 +71,49 @@
                     })
                 }
                 else
+                {
                     this.flag = 1;
+                    this.post();
+                    this.get()
+                }
             },
+            post() {
+                this.$axios.post("api/page3",
+                    {
+                        "detail": this.formInput.detail
+                    }
+                ).then(res => {
+                    console.log("前端已提交")
+                })
+            },
+            get(){
+                this.$axios.get("api/page3").then(res => {
+                    this.result = res.data.result;
+                })
+            }
         },
         computed: {
             renyuan() {
                 if (this.flag == 1)
-                    return "人员";
+                    return this.result.renyuan;
                 else
                     return null
             },
             miaoshu() {
                 if (this.flag == 1)
-                    return "描述";
+                    return this.result.miaoshu;
                 else
                     return null
             },
             leixing() {
                 if (this.flag == 1)
-                    return "类型";
+                    return this.result.leixing;
                 else
                     return null
             },
             jieguo() {
                 if (this.flag == 1)
-                    return "处理结果";
+                    return this.result.jieguo;
                 else
                     return null
             },

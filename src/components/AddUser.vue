@@ -33,9 +33,6 @@
         </div>
       </el-form>
     </div>
-    <div class="el-btn-add">
-      <el-button style="width: 300px; margin:20px 5px 20px 25px;" type="primary" @click="toHome">返回</el-button>
-    </div>
   </div>
 
 </template>
@@ -51,9 +48,6 @@
             }
         },
         methods: {
-            toHome() {
-                this.$router.push("/home");
-            },
             addUser() {
                 this.created()
             },
@@ -80,7 +74,7 @@
                         this.$axios.post("api/addUser",
                             {"userName": this.passwordForm.username, "userPassword": this.passwordForm.password}
                         ).then(res => {
-                            this.$alert('新建成功', '标题名称', {
+                            this.$alert('新建成功', '成功', {
                                 confirmButtonText: '确定',
                             });
                             this.passwordForm={

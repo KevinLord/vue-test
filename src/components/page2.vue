@@ -18,7 +18,7 @@
       </el-form-item>
       <el-row>
         <el-col span="18">
-          <el-form-item label="案件描述" style="margin-left: 120px;margin-top: 30px;">
+          <el-form-item label="识别结果" style="margin-left: 120px;margin-top: 30px;">
             <el-input type="textarea" :rows="5" v-model="imageProcess"></el-input>
           </el-form-item>
         </el-col>
@@ -34,7 +34,8 @@
                 image: {},
                 dialogImageUrl: '',
                 dialogVisible: false,
-                flag: 0
+                flag: 0,
+                result:''
             };
         },
         methods: {
@@ -47,12 +48,28 @@
             },
             result() {
                 this.flag = 1;
+                this.post();
+                this.get()
             },
+            post() {
+                this.$axios.post("api/page2",
+                    {
+                        "file": this.dialogImageUrl
+                    }
+                ).then(res => {
+                    console.log("前端已提交")
+                })
+            },
+            get(){
+                this.$axios.get("api/page2").then(res => {
+                    this.result = res.data.result;
+                })
+            }
         },
         computed: {
             imageProcess() {
                 if (this.flag == 1)
-                    return "图像识别结果";
+                    return this.result;
                 else
                     return null
             }
